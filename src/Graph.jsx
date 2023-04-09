@@ -75,6 +75,7 @@ const initialChartOptions = {
   series: [
     {
       type: "scatter",
+      name: "Trial",
       color: "rgba(0,0,0,0.2)",
       data: null,
       marker: {
@@ -85,19 +86,41 @@ const initialChartOptions = {
         followPointer: false,
         pointFormat: "[{point.x:.1f}, {point.y:.1f}]",
       },
+      enableMouseTracking: false,
+
+      zIndex: 1,
+    },
+    {
+      type: "spline",
+      name: "Average Line",
+      data: null,
+      color: "blue",
+      lineWidth: 3,
+      states: {
+        hover: {
+          lineWidth: 0,
+        },
+      },
+      tooltip: {
+        pointFormat: "<b>${point.y:.2f}</b>",
+      },
+      zIndex: 2,
     },
   ],
 };
 
-export default function Graph({ data }) {
+export default function Graph({ points_array, average_array }) {
   const [chartOptions, setChartOptions] = useState(initialChartOptions);
   useEffect(() => {
     setChartOptions({
-      series: {
-        data: data,
-      },
+      series: [
+        {
+          data: points_array,
+        },
+        { data: average_array },
+      ],
     });
-  }, [data]);
+  }, [points_array]);
 
   return (
     <HighchartsReact

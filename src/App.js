@@ -9,11 +9,11 @@ export default function App() {
   const [graphInput, setGraphInput] = useState({
     bets_per_trial: 100,
     number_of_trials: 100,
-    starting_capital: 1000,
+    starting_capital: 100,
     is_compounding: false,
     win_rate: 0.5,
     bet_percentage: 0.1,
-    take_profit: 0.2,
+    take_profit: 0.1,
     stop_loss: 0.1,
   });
 
@@ -25,7 +25,7 @@ export default function App() {
     });
   };
 
-  const data = createHCScatterData(
+  const { points_array, average_array } = createHCScatterData(
     graphInput.number_of_trials,
     graphInput.win_rate,
     graphInput.starting_capital,
@@ -49,12 +49,12 @@ export default function App() {
       </header>
       <main className="container mx-auto flex flex-col lg:flex-row justify-center mb-4">
         <div className="w-full min-w-[380px] max-w-[720px] mx-auto px-4">
-          <Graph data={data} bets_per_trial={graphInput.bets_per_trial} />
+          <Graph points_array={points_array} average_array={average_array} />
         </div>
         <form className="px-4 sm:pl-0 sm:pr-2">
           <div>
             <h2 className="text-base font-semibold leading-7 text-gray-900 border-b border-gray-900/10">
-              Game
+              The Game
             </h2>
             <div className="mt-2 grid gap-x-6 gap-y-2 grid-cols-6">
               <div className="col-span-6 sm:col-span-2 lg:col-span-6 xl:col-span-2">
@@ -114,7 +114,7 @@ export default function App() {
             </div>
             <div className="pt-6">
               <h2 className="text-base font-semibold leading-7 text-gray-900 border-b border-gray-900/10">
-                Strategy
+                The Strategy
               </h2>
               <div className="mt-2 grid gap-x-6 gap-y-2 grid-cols-6 sm:grid-cols-6 lg:grid-cols-6">
                 <div className="col-span-2 lg:col-span-2">
@@ -152,7 +152,7 @@ export default function App() {
                     name="take_profit"
                     allowNegative={false}
                     thousandSeparator={false}
-                    value={graphInput.win_rate}
+                    value={graphInput.take_profit}
                     onValueChange={handleChange}
                     decimalScale={2}
                     isAllowed={(values) => {
@@ -175,7 +175,7 @@ export default function App() {
                     name="stop_loss"
                     allowNegative={false}
                     thousandSeparator={false}
-                    value={graphInput.win_rate}
+                    value={graphInput.stop_loss}
                     onValueChange={handleChange}
                     decimalScale={2}
                     isAllowed={(values) => {
@@ -198,7 +198,7 @@ export default function App() {
                     name="bet_percentage"
                     allowNegative={false}
                     thousandSeparator={false}
-                    value={graphInput.win_rate}
+                    value={graphInput.bet_percentage}
                     onValueChange={handleChange}
                     decimalScale={2}
                     isAllowed={(values) => {

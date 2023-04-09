@@ -17,8 +17,15 @@ export function createHCScatterData(
   if (!starting_capital || starting_capital <= 0) {
     starting_capital = 0;
   }
+  if (!win_rate) {
+    win_rate = 0;
+  }
+  if (win_rate >= 1) {
+    win_rate = 1;
+  }
   let total_length = number_of_trials * (bets_per_trial + 1);
   const points_array = new Array(total_length);
+  const average_array = new Array(bets_per_trial + 1).fill(0);
   for (let trial = 0; trial < number_of_trials; trial++) {
     const trial_data = createSingleTrial(
       win_rate,
@@ -32,9 +39,11 @@ export function createHCScatterData(
     trial_data.forEach((current_element, index) => {
       let point = [index, current_element];
       points_array[trial * (bets_per_trial + 1) + index] = point;
+      // Add the average contribution of this one point
+      average_array[index] += current_element / number_of_trials;
     });
   }
-  return points_array;
+  return { points_array, average_array };
 }
 
 function createSingleTrial(
