@@ -131,7 +131,7 @@ export default function App() {
                     thousandSeparator={false}
                     value={graphInput.win_rate}
                     onValueChange={handleChange}
-                    decimalScale={2}
+                    decimalScale={3}
                     isAllowed={(values) => {
                       const { floatValue } = values;
                       return floatValue >= 0;
@@ -154,7 +154,7 @@ export default function App() {
                     thousandSeparator={false}
                     value={graphInput.take_profit}
                     onValueChange={handleChange}
-                    decimalScale={2}
+                    decimalScale={3}
                     isAllowed={(values) => {
                       const { floatValue } = values;
                       return floatValue >= 0;
@@ -177,7 +177,7 @@ export default function App() {
                     thousandSeparator={false}
                     value={graphInput.stop_loss}
                     onValueChange={handleChange}
-                    decimalScale={2}
+                    decimalScale={3}
                     isAllowed={(values) => {
                       const { floatValue } = values;
                       return floatValue >= 0;
@@ -200,7 +200,7 @@ export default function App() {
                     thousandSeparator={false}
                     value={graphInput.bet_percentage}
                     onValueChange={handleChange}
-                    decimalScale={2}
+                    decimalScale={3}
                     isAllowed={(values) => {
                       const { floatValue } = values;
                       return floatValue >= 0;

@@ -7,8 +7,13 @@ Boost(Highcharts);
 const colors = Highcharts.getOptions().colors.map((color) =>
   Highcharts.color(color).setOpacity(0.5).get()
 );
+const numberWithCommas = (x) =>
+  x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
 const initialChartOptions = {
+  lang: {
+    thousandsSep: ",",
+  },
   chart: {
     zoomType: "xy",
     height: "100%",
@@ -30,9 +35,9 @@ const initialChartOptions = {
       labels: {
         formatter: function () {
           if (this.value >= 0) {
-            return "$" + this.value;
+            return "$" + numberWithCommas(this.value);
           } else {
-            return "-$" + this.value * -1;
+            return "-$" + numberWithCommas(this.value * -1);
           }
         },
       },
@@ -46,9 +51,9 @@ const initialChartOptions = {
       labels: {
         formatter: function () {
           if (this.value >= 0) {
-            return "$" + this.value;
+            return "$" + numberWithCommas(this.value);
           } else {
-            return "-$" + this.value * -1;
+            return "-$" + numberWithCommas(this.value * -1);
           }
         },
       },
@@ -79,15 +84,14 @@ const initialChartOptions = {
       color: "rgba(0,0,0,0.2)",
       data: null,
       marker: {
-        radius: 2,
+        radius: 1,
         symbol: "square",
       },
       tooltip: {
         followPointer: false,
-        pointFormat: "[{point.x:.1f}, {point.y:.1f}]",
+        pointFormat: "[{point.x:,.1f}, {point.y:,.1f}]",
       },
       enableMouseTracking: false,
-
       zIndex: 1,
     },
     {
@@ -102,7 +106,7 @@ const initialChartOptions = {
         },
       },
       tooltip: {
-        pointFormat: "<b>${point.y:.2f}</b>",
+        pointFormat: "<b>${point.y:,.2f}</b>",
       },
       zIndex: 2,
     },
